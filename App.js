@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 const crossBoxGame = [
-  { id: 1, color: "white" },
-  { id: 2, color: "white" },
-  { id: 3, color: "white" },
-  { id: 4, color: "white" },
-  { id: 5, color: "white" },
-  { id: 6, color: "white" },
-  { id: 7, color: "white" },
-  { id: 8, color: "white" },
-  { id: 9, color: "white" },
+  { id: 1, color: "white", sign: "" },
+  { id: 2, color: "white", sign: "" },
+  { id: 3, color: "white", sign: "" },
+  { id: 4, color: "white", sign: "" },
+  { id: 5, color: "white", sign: "" },
+  { id: 6, color: "white", sign: "" },
+  { id: 7, color: "white", sign: "" },
+  { id: 8, color: "white", sign: "" },
+  { id: 9, color: "white", sign: "" },
 ];
 const App = () => {
   const [cardList, setCardList] = useState(JSON.parse(JSON.stringify(crossBoxGame)));
@@ -23,6 +23,7 @@ const App = () => {
     const filteredArray = cardList.map((card) => {
       if (card.id === id && card.color === "white") {
         card.color = crossBox ? "lightblue" : "lightpink";
+        card.sign = crossBox ? "X" : "O";
         setCrossBox(!crossBox);
       }
       return card;
@@ -72,12 +73,16 @@ const App = () => {
         {cardList.map((card) => (
           <div
             key={card.id}
-            className="bg-slate-400 w-40 h-40 m-2 cursor-pointer"
+            className="bg-slate-400 w-40 h-40 m-2 cursor-pointer relative"
             style={{ background: card.color }}
             onClick={() => {
               handleBtnClick(card.id);
             }}
-          ></div>
+          >
+            <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-7xl text-white font-bold">
+              {card.sign}
+            </span>
+          </div>
         ))}
 
         <button className=" bg-slate-900 text-white py-2 px-4 rounded-md mx-auto" onClick={handleResetGame}>
